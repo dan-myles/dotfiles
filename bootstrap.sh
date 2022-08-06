@@ -4,19 +4,14 @@
 # This script may rewrite existing configuration files. Use with care!
 # https://github.com/danlikestocode/dotfiles
 
-
-
-
 # Adding functionality for spinner and progress bar
 function draw_spinner()
 {
     # shellcheck disable=SC1003
     local -a marks=( '/' '-' '\' '|' )
     local i=0
-
     delay=${SPINNER_DELAY:-0.25}
     message=${1:-}
-
     while :; do
         printf '%s\r' "               [${marks[i++ % ${#marks[@]}]}] $message"
         sleep "${delay}"
@@ -26,13 +21,9 @@ function draw_spinner()
 function start_spinner()
 {
     message=${1:-}                                # Set optional message
-
     draw_spinner "${message}" &                   # Start the Spinner:
-
     SPIN_PID=$!                                   # Make a note of its Process ID (PID):
-
     declare -g SPIN_PID
-
     trap stop_spinner $(seq 0 15)
 }
 
@@ -41,10 +32,8 @@ function draw_spinner_eval()
     # shellcheck disable=SC1003
     local -a marks=( '/' '-' '\' '|' )
     local i=0
-
     delay=${SPINNER_DELAY:-0.25}
     message=${1:-}
-
     while :; do
         message=$(eval "$1")
         printf '%s\r' "${marks[i++ % ${#marks[@]}]} $message"
@@ -56,18 +45,13 @@ function draw_spinner_eval()
 function start_spinner_eval()
 {
     command=${1}                                  # Set the command
-
     if [[ -z "${command}" ]]; then
         echo "You MUST supply a command"
         exit
     fi
-
     draw_spinner_eval "${command}" &              # Start the Spinner:
-
     SPIN_PID=$!                                   # Make a note of its Process ID (PID):
-
     declare -g SPIN_PID
-
     trap stop_spinner $(seq 0 15)
 }
 
@@ -82,10 +66,8 @@ function stop_spinner()
 
 function printer() 
 {
-    
     printf "               ${1}\n\n"
 }
-
 
 ####
 # Main Script
@@ -151,7 +133,28 @@ stop_spinner
 start_spinner "- Installing wget..."
 sudo apt-get install wget -y &>/dev/null
 stop_spinner
+start_spinner "Installing Github CLI..."
+sleep 2
+stop_spinner
+clear
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+sudo apt update
+sudo apt install gh
+echo
+echo "Github CLI has been succesfully installed..."
+sleep 3
+clear
 
+#Have to re print after github cli installation
+printer "${WHITE}----------------------------------------------${NC}"
+printer "${WHITE}---- danlikestocode/dotfiles Installation ----${NC}"
+printer "${WHITE}----------------------------------------------${NC}"
+echo
+echo
+printer "${GREEN}[✓] - Finished creating a temporary directory for installation!${NC}"
+printer "${GREEN}[✓] - Finished updating and upgrading system packages!${NC}"
 printer "${GREEN}[✓] - Finished installing dependencies!${NC}"
 
 #Removing packages that may be outdated...
@@ -213,6 +216,8 @@ stop_spinner
 
 printer "${GREEN}[✓] - Finished cleaning up temporary directory!${NC}"
 printer "${GREEN}[✓] - Finished installing all dotfiles!${NC}"
-echo
+printer "------------------"
 printer "The installation was ${GREEN}successful${NC}! Your packages have been updated and dotfiles have been configured from the remote repository. As a default all of your dotfiles are located at ~/dotfiles"
+printer "If you are installing these dotfiles and aren't me, please set your gitconfig username and email."
+
 tput cnorm
