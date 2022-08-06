@@ -79,6 +79,7 @@ NC='\033[0m'
 
 #Checking for appropriate permissions
 clear
+printf "This script requires sudo permissions.\n"
 echo "Current User: $(whoami)"
 [ "$UID" -eq 0 ] || exec sudo "$0" "$@"
 clear
