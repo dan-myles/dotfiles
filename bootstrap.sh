@@ -212,6 +212,9 @@ stop_spinner
 start_spinner "- Downloading dotfiles..."
 cd ${user_home}
 git clone https://github.com/danlikestocode/dotfiles &>/dev/null
+cd ${user_home}
+cd dotfiles
+rm -rdf .git &>/dev/null
 stop_spinner
 
 printer "${GREEN}[✓] - Finished cloning dotfiles repository!${NC}"
