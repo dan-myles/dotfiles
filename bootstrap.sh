@@ -121,6 +121,15 @@ printer "${WHITE}----------------------------------------------${NC}"
 echo
 echo
 
+# Creating temporary directory
+start_spinner "- Creating temporary directory for installation..."
+sleep 2
+mkdir ${user_home}/tmp2781
+cd ${user_home}/tmp2781
+stop_spinner
+
+printer "${GREEN}[✓] - Finished creating a temporary directory for installation!${NC}"
+
 # Performing general system update
 start_spinner "- Beginning installation..."
 sleep 2
@@ -129,6 +138,7 @@ start_spinner "- Updating and upgrading system packages... (this may take a whil
 sudo apt-get update -y &>/dev/null
 sudo apt-get upgrade -y &>/dev/null
 stop_spinner
+
 printer "${GREEN}[✓] - Finished updating and upgrading system packages!${NC}"
 
 # Making sure dependencies are installed
@@ -162,6 +172,7 @@ start_spinner "- Removing tmux.."
 sudo apt-get purge tmux -y &>/dev/null
 stop_spinner
 start_spinner "- Installing the latest stable release of tmux..."
+cd ${user_home}/tmp2781
 curl -s https://api.github.com/repos/nelsonenzo/tmux-appimage/releases/latest \
 | grep "browser_download_url.*appimage" \
 | cut -d : -f 2,3 \
@@ -197,9 +208,11 @@ printer "${GREEN}[✓] - Finished cloning dotfiles repository!${NC}"
 # Cleaning up
 start_spinner "- Cleaning up..."
 sleep 2
+rm -rdf ${user_home}/tmp2781
 stop_spinner
 
+printer "${GREEN}[✓] - Finished cleaning up temporary directory!${NC}"
 printer "${GREEN}[✓] - Finished installing all dotfiles!${NC}"
-
-
+echo
+printer "The installation was ${GREEN}successful${NC}! Your packages have been updated and dotfiles have been configured from the remote repository. As a default all of your dotfiles are located at ~/dotfiles"
 tput cnorm
