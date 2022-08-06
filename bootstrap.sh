@@ -148,7 +148,6 @@ sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 sudo apt update
 sudo apt install gh
-sleep 1
 clear
 printer "${WHITE}----------------------------------------------${NC}"
 printer "${WHITE}---- danlikestocode/dotfiles Installation ----${NC}"
@@ -269,7 +268,7 @@ printf "\nStarting authentication process using Github CLI..."
 sleep 1
 clear
 gh auth login
-sleep 5
+sleep 2
 clear
 # Github authentication requires reprint of finished steps...
 printer "${WHITE}----------------------------------------------${NC}"
