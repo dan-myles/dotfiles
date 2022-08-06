@@ -18,7 +18,7 @@ function draw_spinner()
     message=${1:-}
 
     while :; do
-        printf '%s\r' "                          [${marks[i++ % ${#marks[@]}]}]  $message"
+        printf '%s\r' "               [${marks[i++ % ${#marks[@]}]}]  $message"
         sleep "${delay}"
     done
 }
@@ -83,22 +83,49 @@ function stop_spinner()
 function printer() 
 {
     
-    printf "TESTING PRINTER: ${1}"
+    printf "               ${1}\n\n"
 }
 
 
+####
+# Main Script
+####
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+WHITE='\033[0;97m'
+NC='\033[0m'
+
+# Checking for user confirmation
+while true; do
+	read -p "This script may overwrite existing configuration files. Do you wish to continue? (y/n): " -n 1 -r -e yn
+    case "${yn:-Y}" in
+        [YyZzOoJj]* ) echo; break ;;
+        [Nn]* ) [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 ;; # handle exits from shell or function but don't exit interactive shell
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+# Starting script
 tput civis
 clear
-printer "starting!\n"
+printer "${WHITE}----------------------------------------------${NC}"
+printer "${WHITE}---- danlikestocode/dotfiles Installation ----${NC}"
+printer "${WHITE}----------------------------------------------${NC}"
+printer "${WHITE}Beginning installation${NC}"
 
-start_spinner "hello!"
-sleep 5
+# Making sure dependencies are installed
+start_spinner "- Executing some command..."
+sudo apt install git
 stop_spinner
 
-printer "finished hello command\n"
+printer "${GREEN}[✓] - Finished hello command! ${NC}"
 
 start_spinner "test2"
 sleep 5
 stop_spinner
+
+
+
+
 
 tput cnorm
