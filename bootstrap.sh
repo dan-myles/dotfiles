@@ -93,6 +93,7 @@ while true; do
     esac
 done
 
+##################
 # Starting script
 user_home="$(getent passwd $SUDO_USER | cut -d: -f6)"
 tput civis
@@ -103,6 +104,7 @@ printer "${WHITE}----------------------------------------------${NC}"
 echo
 echo
 
+##################
 # Creating temporary directory
 start_spinner "- Creating temporary directory for installation..."
 sleep 2
@@ -112,6 +114,7 @@ stop_spinner
 
 printer "${GREEN}[✓] - Finished creating a temporary directory for installation!${NC}"
 
+##################
 # Performing general system update
 start_spinner "- Beginning installation..."
 sleep 2
@@ -123,7 +126,9 @@ stop_spinner
 
 printer "${GREEN}[✓] - Finished updating and upgrading system packages!${NC}"
 
+##################
 # Making sure dependencies are installed
+# Add extra packages to install here
 start_spinner "- Installing dependencies..."
 sleep 2
 stop_spinner
@@ -133,8 +138,8 @@ stop_spinner
 start_spinner "- Installing wget..."
 sudo apt-get install wget -y &>/dev/null
 stop_spinner
-start_spinner "Installing Github CLI..."
-sleep 2
+start_spinner "- Installing Github CLI..."
+sleep 3
 stop_spinner
 clear
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
@@ -142,12 +147,8 @@ sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 sudo apt update
 sudo apt install gh
-echo
-echo "Github CLI has been succesfully installed..."
 sleep 3
 clear
-
-#Have to re print after github cli installation
 printer "${WHITE}----------------------------------------------${NC}"
 printer "${WHITE}---- danlikestocode/dotfiles Installation ----${NC}"
 printer "${WHITE}----------------------------------------------${NC}"
@@ -155,9 +156,13 @@ echo
 echo
 printer "${GREEN}[✓] - Finished creating a temporary directory for installation!${NC}"
 printer "${GREEN}[✓] - Finished updating and upgrading system packages!${NC}"
+start_spinner "- Finishing Github CLI installation..."
+sleep 2
+stop_spinner
 printer "${GREEN}[✓] - Finished installing dependencies!${NC}"
 
-#Removing packages that may be outdated...
+##################
+# Removing packages that may be outdated...
 start_spinner "- Checking for outdated packages..."
 sleep 2
 stop_spinner
@@ -187,6 +192,7 @@ stop_spinner
 
 printer "${GREEN}[✓] - Finished updating outdated packages!${NC}"
 
+##################
 # Cleaning up old dotfiles directory
 start_spinner "- Cleaning up old dotfiles directory..."
 sleep 2
@@ -197,6 +203,7 @@ stop_spinner
 
 printer "${GREEN}[✓] - Finished cleaning up old configuration files!${NC}"
 
+##################
 # Cloning repository into new directory
 start_spinner "- Cloning dotfiles into new directory... (default directory: ~/dotfiles)"
 sleep 2
@@ -208,6 +215,7 @@ stop_spinner
 
 printer "${GREEN}[✓] - Finished cloning dotfiles repository!${NC}"
 
+##################
 #Making symbolic links for dotfiles
 start_spinner "- Linking ${user_home} based dotfiles..."
 sleep 2
@@ -242,6 +250,40 @@ cd ${user_home}
 ln -s ./dotfiles/tmux/tmux.conf ./.config/tmux/tmux.conf
 stop_spinner
 
+printer "${GREEN}[✓] - Finished creating symbolic links for dotfiles!${NC}"
+
+##################
+# Signing into github...
+
+start_spinner "- Attempting to use Github CLI to sign into Github..."
+sleep 3
+stop_spinner
+clear
+printf "${RED}Github Authentication Required!${NC}"
+sleep 1
+printf "\nStarting authentication using Github CLI..."
+sleep 3
+clear
+gh auth login
+sleep 5
+clear
+# Github authentication requires reprint of finished steps...
+printer "${WHITE}----------------------------------------------${NC}"
+printer "${WHITE}---- danlikestocode/dotfiles Installation ----${NC}"
+printer "${WHITE}----------------------------------------------${NC}"
+echo
+echo
+printer "${GREEN}[✓] - Finished creating a temporary directory for installation!${NC}"
+printer "${GREEN}[✓] - Finished updating and upgrading system packages!${NC}"
+printer "${GREEN}[✓] - Finished installing dependencies!${NC}"
+printer "${GREEN}[✓] - Finished updating outdated packages!${NC}"
+printer "${GREEN}[✓] - Finished cleaning up old configuration files!${NC}"
+printer "${GREEN}[✓] - Finished cloning dotfiles repository!${NC}"
+printer "${GREEN}[✓] - Finished creating symbolic links for dotfiles!${NC}"
+printer "${GREEN}[✓] - Finished Github authentication succesfully!${NC}"
+
+
+
 # Cleaning up
 start_spinner "- Cleaning up..."
 sleep 2
@@ -250,8 +292,9 @@ stop_spinner
 
 printer "${GREEN}[✓] - Finished cleaning up temporary directory!${NC}"
 printer "${GREEN}[✓] - Finished installing all dotfiles!${NC}"
-printer "------------------"
-printer "The installation was ${GREEN}successful${NC}! Your packages have been updated and dotfiles have been configured from the remote repository. As a default all of your dotfiles are located at ~/dotfiles"
-printer "If you are installing these dotfiles and aren't me, please set your gitconfig username and email."
+printer "--------------"
+printf "The installation was ${GREEN}successful${NC}!\nYour packages have been updated and dotfiles have been configured from the remote repository.\nAs a default all of your dotfiles are located at ~/dotfiles"
+printf "You may have to close and reopen your terminal for changes to take affect."
+
 
 tput cnorm
