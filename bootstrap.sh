@@ -208,6 +208,40 @@ stop_spinner
 
 printer "${GREEN}[✓] - Finished cloning dotfiles repository!${NC}"
 
+#Making symbolic links for dotfiles
+start_spinner "- Linking ${user_home} based dotfiles..."
+sleep 2
+stop_spinner
+start_spinner "- Linking .gitconfig..."
+cd ${user_home}
+ln -s ./dotfiles/.gitconfig ./.gitconfig
+stop_spinner
+start_spinner "- Linking .bashrc..."
+cd ${user_home}
+ln -s ./dotfiles/.bashrc ./.bashrc
+stop_spinner
+##### Creating .config directory structure if it doesn't exist
+start_spinner "- Creating a .config folder in home directory if it does not exist..."
+sleep 1
+cd ${user_home}
+mkdir .config &>/dev/null
+stop_spinner
+#### Creating subfolders in .config directory structure, if they do not exist
+start_spinner "- Creating child directories..."
+sleep 2
+cd ${user_home}
+cd .config
+mkdir tmux &>/dev/null
+mkdir vim &>/dev/null
+mkdir nvim &>/dev/null
+mkdir gh &>/dev/null
+stop_spinner
+start_spinner "- Creating symbolic links for dotfiles..."
+sleep 1
+cd ${user_home}
+ln -s ./dotfiles/tmux/tmux.conf ./.config/tmux/tmux.conf
+stop_spinner
+
 # Cleaning up
 start_spinner "- Cleaning up..."
 sleep 2
