@@ -294,7 +294,7 @@ printer "${GREEN}[✓] - Finished cleaning up temporary directory!${NC}"
 printer "${GREEN}[✓] - Finished installing all dotfiles!${NC}"
 printer "--------------"
 printf "The installation was ${GREEN}successful${NC}!\nYour packages have been updated and dotfiles have been configured from the remote repository.\nAs a default all of your dotfiles are located at ~/dotfiles"
-printf "You may have to close and reopen your terminal for changes to take affect."
+printf "\nYou may have to close and reopen your terminal for changes to take affect."
 
-
+#Turning cursor back on
 tput cnorm
