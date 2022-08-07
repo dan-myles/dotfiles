@@ -1,1 +1,2 @@
-"This is a test
+"init.vim
+"Configuration file for Neovim
