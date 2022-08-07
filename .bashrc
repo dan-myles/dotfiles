@@ -123,5 +123,5 @@ alias rm='rm -i'
 alias wsl-shutdown='cmd.exe /c wsl.exe --terminate $WSL_DISTRO_NAME & wsl.exe --shutdown & exit'
 alias wsl-reboot='cd /mnt/c/ && cmd.exe /c start "rebooting WSL" cmd /c "timeout 5 && wsl -d $WSL_DISTRO_NAME" && wsl.exe --terminate $WSL_DISTRO_NAME'
 
-export EDITOR='lvim'
+export EDITOR='nvim'
 

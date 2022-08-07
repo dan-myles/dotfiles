@@ -278,7 +278,7 @@ clear
 printf "${RED}Github Authentication Required!${NC}"
 sleep 1
 printf "\nThis script may ask you to log back into your normal user for Github Authentication.\nStarting authentication process using Github CLI...\n"
-sleep 2
+sleep 4
 clear
 cd ${user_home}
 sudo pwd &>/dev/null
