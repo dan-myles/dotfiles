@@ -96,6 +96,8 @@ done
 
 ##################
 # Starting script
+# Get user name and home
+[ $SUDO_USER ] && user_name=$SUDO_USER || user_name=`whoami`
 user_home="$(getent passwd $SUDO_USER | cut -d: -f6)"
 tput civis
 clear
@@ -255,8 +257,6 @@ ln -s ./dotfiles/nvim/init.vim ./.config/nvim/init.vim
 stop_spinner
 start_spinner "- Changing directory owners to normal user..."
 sleep 2
-# Get user name
-[ $SUDO_USER ] && user_name=$SUDO_USER || user_name=`whoami`
 chown -R ${user_name}:${user_name} ${user_home}/.config/
 chown -R ${user_name}:${user_name} ${user_home}/dotfiles/
 # Chown symlinks one by one
@@ -280,9 +280,10 @@ sleep 1
 printf "\nThis script may ask you to log back into your normal user for Github Authentication.\nStarting authentication process using Github CLI...\n"
 sleep 2
 clear
+cd ${user_home}
 sudo pwd &>/dev/null
 su {user_name} -c "gh auth login"
-sleep 1
+sleep 30
 clear
 
 # Github authentication requires reprint of finished steps...
