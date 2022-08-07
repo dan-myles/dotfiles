@@ -229,11 +229,11 @@ sleep 2
 stop_spinner
 start_spinner "- Linking .gitconfig..."
 cd ${user_home}
-ln -s ./dotfiles/.gitconfig ./.gitconfig
+sudo ln -s ./dotfiles/.gitconfig ./.gitconfig
 stop_spinner
 start_spinner "- Linking .bashrc..."
 cd ${user_home}
-ln -s ./dotfiles/.bashrc ./.bashrc
+sudo ln -s ./dotfiles/.bashrc ./.bashrc
 stop_spinner
 ##### Creating .config directory structure if it doesn't exist
 start_spinner "- Creating a .config folder in home directory if it does not exist..."
@@ -252,8 +252,8 @@ stop_spinner
 start_spinner "- Creating symbolic links for .config dotfiles..."
 sleep 2
 cd ${user_home}
-ln -s ./dotfiles/tmux/tmux.conf ./.config/tmux/tmux.conf
-ln -s ./dotfiles/nvim/init.vim ./.config/nvim/init.vim
+sudo ln -s ${user_home}/dotfiles/tmux/tmux.conf ${user_home}/.config/tmux/tmux.conf
+sudo ln -s ${user_home}/dotfiles/nvim/init.vim ${user_home}/.config/nvim/init.vim
 stop_spinner
 start_spinner "- Changing directory owners to normal user..."
 sleep 2
