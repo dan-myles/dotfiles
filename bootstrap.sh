@@ -197,8 +197,12 @@ printer "${GREEN}[✓] - Finished updating outdated packages!${NC}"
 start_spinner "- Cleaning up old dotfiles directory..."
 sleep 2
 stop_spinner
-start_spinner "- Deleting any existing dotfiles directory..."
+start_spinner "- Deleting any existing configuration files & directories..."
+rm -f ${user_home}/.bashrc &>/dev/null
+rm -f ${user_home}/.gitconfig &>/dev/null
 rm -rdf ${user_home}/dotfiles &>/dev/null
+rm -rdf ${user_home}/.config/tmux &>/dev/null
+rm -rdf ${user_home}/.config/nvim &>/dev/null
 stop_spinner
 
 printer "${GREEN}[✓] - Finished cleaning up old configuration files!${NC}"
@@ -295,6 +299,11 @@ printer "${GREEN}[✓] - Finished installing all dotfiles!${NC}"
 printf "The installation was ${GREEN}successful${NC}!\nYour packages have been updated and dotfiles have been configured from the remote repository.\nAs a default all of your dotfiles are located at ~/dotfiles"
 printf "\nYou may have to close and reopen your terminal for changes to take affect."
 
+# Total Files Being Changed:
+# ${HOME}/.bashrc
+# ${HOME}/.gitconfig
+# ${HOME}/.config/tmux/tmux.conf
+# ${HOME}/.config/nvim/init.vim
 
 #Turning cursor back on
 tput cnorm
