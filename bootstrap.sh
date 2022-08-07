@@ -283,6 +283,9 @@ clear
 cd ${user_home}/dotfiles/
 gh auth login
 sleep 1
+cd ${user_home}/dotfiles/
+gh auth setup-git
+sleep 1
 clear
 
 # Github authentication requires reprint of finished steps...
