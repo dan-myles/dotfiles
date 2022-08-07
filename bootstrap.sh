@@ -278,17 +278,10 @@ clear
 printf "${RED}Github Authentication Required!${NC}"
 sleep 1
 printf "\nThis script may ask you to log back into your normal user for Github Authentication.\nStarting authentication process using Github CLI...\n"
-sleep 1
+sleep 2
 clear
 sudo pwd &>/dev/null
-su - ${user_name}
-cd ${user_home}/dotfiles/
-sleep 1
-clear
-gh auth login
-sleep 1
-cd ${user_home}/dotfiles/
-gh auth setup-git
+su {user_name} -c "gh auth login"
 sleep 1
 clear
 
