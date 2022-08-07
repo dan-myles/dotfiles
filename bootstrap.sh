@@ -282,8 +282,8 @@ sleep 2
 clear
 cd ${user_home}
 sudo pwd &>/dev/null
-su {user_name} -c "gh auth login"
-sleep 30
+su ${user_name} -c "gh auth login"
+sleep 2
 clear
 
 # Github authentication requires reprint of finished steps...
