@@ -295,11 +295,15 @@ rm -rdf ${user_home}/tmp2781
 stop_spinner
 start_spinner "- Changing directory owners to normal user..."
 sleep 2
+# Get user name
 [ $SUDO_USER ] && user_name=$SUDO_USER || user_name=`whoami`
-chown -R ${user_name} ${user_home}/.config/
-chown -R ${user_name} ${user_home}/dotfiles/
-chown ${user_name} ${user_home}/.bashrc
-chown ${user_name} ${user_home}/.gitconfig
+chown -R ${user_name}:${user_name} ${user_home}/.config/
+chown -R ${user_name}:${user_name} ${user_home}/dotfiles/
+# Chown symlinks one by one
+chown -h ${user_name}:${user_name} ${user_home}/.bashrc
+chown -h ${user_name}:${user_name} ${user_home}/.gitconfig
+chown -h ${user_name}:${user_name} ${user_home}/.config/tmux/tmux.conf
+chown -h ${user_name}:${user_name} ${user_home}/.config/nvim/init.vim
 stop_spinner
 
 printer "${GREEN}[✓] - Finished changing file ownership!${NC}"
