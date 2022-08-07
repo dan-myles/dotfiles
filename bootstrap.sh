@@ -293,7 +293,16 @@ start_spinner "- Cleaning up..."
 sleep 2
 rm -rdf ${user_home}/tmp2781
 stop_spinner
+start_spinner "- Changing directory owners to normal user..."
+sleep 2
+[ $SUDO_USER ] && user_name=$SUDO_USER || user_name=`whoami`
+chown -R ${user_name} ${user_home}/.config/
+chown -R ${user_name} ${user_home}/dotfiles/
+chown ${user_name} ${user_home}/.bashrc
+chown ${user_name} ${user_home}/.gitconfig
+stop_spinner
 
+printer "${GREEN}[✓] - Finished changing file ownership!${NC}"
 printer "${GREEN}[✓] - Finished cleaning up temporary directory!${NC}"
 printer "${GREEN}[✓] - Finished installing all dotfiles!${NC}"
 printf "The installation was ${GREEN}successful${NC}!\nYour packages have been updated and dotfiles have been configured from the remote repository.\nAs a default all of your dotfiles are located at ~/dotfiles"
