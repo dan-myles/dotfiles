@@ -253,8 +253,20 @@ cd ${user_home}
 ln -s ./dotfiles/tmux/tmux.conf ./.config/tmux/tmux.conf
 ln -s ./dotfiles/nvim/init.vim ./.config/nvim/init.vim
 stop_spinner
+start_spinner "- Changing directory owners to normal user..."
+sleep 2
+# Get user name
+[ $SUDO_USER ] && user_name=$SUDO_USER || user_name=`whoami`
+chown -R ${user_name}:${user_name} ${user_home}/.config/
+chown -R ${user_name}:${user_name} ${user_home}/dotfiles/
+# Chown symlinks one by one
+chown -h ${user_name}:${user_name} ${user_home}/.bashrc
+chown -h ${user_name}:${user_name} ${user_home}/.gitconfig
+chown -h ${user_name}:${user_name} ${user_home}/.config/tmux/tmux.conf
+chown -h ${user_name}:${user_name} ${user_home}/.config/nvim/init.vim
+stop_spinner
 
-printer "${GREEN}[✓] - Finished creating symbolic links for dotfiles!${NC}"
+printer "${GREEN}[✓] - Finished creating symbolic links, and changing ownership for dotfiles!${NC}"
 
 ##################
 # Signing into github...
@@ -293,20 +305,8 @@ start_spinner "- Cleaning up..."
 sleep 2
 rm -rdf ${user_home}/tmp2781
 stop_spinner
-start_spinner "- Changing directory owners to normal user..."
-sleep 2
-# Get user name
-[ $SUDO_USER ] && user_name=$SUDO_USER || user_name=`whoami`
-chown -R ${user_name}:${user_name} ${user_home}/.config/
-chown -R ${user_name}:${user_name} ${user_home}/dotfiles/
-# Chown symlinks one by one
-chown -h ${user_name}:${user_name} ${user_home}/.bashrc
-chown -h ${user_name}:${user_name} ${user_home}/.gitconfig
-chown -h ${user_name}:${user_name} ${user_home}/.config/tmux/tmux.conf
-chown -h ${user_name}:${user_name} ${user_home}/.config/nvim/init.vim
-stop_spinner
 
-printer "${GREEN}[✓] - Finished changing file ownership!${NC}"
+#End Prompt
 printer "${GREEN}[✓] - Finished cleaning up temporary directory!${NC}"
 printer "${GREEN}[✓] - Finished installing all dotfiles!${NC}"
 printf "The installation was ${GREEN}successful${NC}!\nYour packages have been updated and dotfiles have been configured from the remote repository.\nAs a default all of your dotfiles are located at ~/dotfiles"
