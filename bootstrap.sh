@@ -280,9 +280,11 @@ sleep 1
 printf "\nStarting authentication process using Github CLI..."
 sleep 1
 clear
+cd ${user_home}/dotfiles/
 gh auth login
-sleep 2
+sleep 1
 clear
+
 # Github authentication requires reprint of finished steps...
 printer "${WHITE}----------------------------------------------${NC}"
 printer "${WHITE}---- danlikestocode/dotfiles Installation ----${NC}"
