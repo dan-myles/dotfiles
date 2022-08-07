@@ -241,14 +241,13 @@ sleep 2
 cd ${user_home}
 cd .config
 mkdir tmux &>/dev/null
-mkdir vim &>/dev/null
 mkdir nvim &>/dev/null
-mkdir gh &>/dev/null
 stop_spinner
-start_spinner "- Creating symbolic links for dotfiles..."
-sleep 1
+start_spinner "- Creating symbolic links for .config dotfiles..."
+sleep 2
 cd ${user_home}
 ln -s ./dotfiles/tmux/tmux.conf ./.config/tmux/tmux.conf
+ln -s ./dotfiles/nvim/init.vim ./.config/nvim/init.vim
 stop_spinner
 
 printer "${GREEN}[✓] - Finished creating symbolic links for dotfiles!${NC}"
