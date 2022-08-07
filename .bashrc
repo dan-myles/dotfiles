@@ -113,14 +113,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-#Custom Loading of NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-. "$HOME/.cargo/env"
-
-
 #Custom Commands and Aliases
 alias ll='ls -lah $PWD/* --human-readable --group-directories-first --color=auto --time-style='+%b-%d-%Y''
 alias ls='ls -lah -1 --human-readable --group-directories-first --color=auto --time-style='+%b-%d-%Y''
