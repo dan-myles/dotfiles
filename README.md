@@ -1,5 +1,5 @@
 # Dan's Dotfiles
->OS: Arch
+>OS: Arch\n
 >Desktop Environment: Hyprland
 
 
