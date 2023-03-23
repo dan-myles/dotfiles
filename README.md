@@ -110,10 +110,10 @@ Now we just need to add the following lines to our `hyprland.conf` however this 
 ```
 # Under Environment Variables
 env = LIBVA_DRIVER_NAME,nvidia
-env = XDG_SESSION_TYPE,wayland
 env = GBM_BACKEND,nvidia-drm
 env = __GLX_VENDOR_LIBRARY_NAME,nvidia
 env = WLR_NO_HARDWARE_CURSORS,1
+env = XDG_SESSION_TYPE,wayland
 ``` 
 
 Now we can just *reboot* and continue installing Hyprland.
@@ -137,7 +137,6 @@ exec-once = dunst & waybar & hyprpaper
 exec-once = /usr/lib/polkit-kde-authentication-agent-1
 # Under Environment Variables
 env = XDG_CURRENT_DESKTOP,Hyprland
-env = XDG_SESSION_TYPE,wayland
 env = XDG_SESSION_DESKTOP,Hyprland
 ```  
 
