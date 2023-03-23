@@ -1,8 +1,7 @@
 # Dan's Dotfiles
 >**OS:** Arch Linux  
 **Desktop Environment:** Hyprland  
-<br>
->**Shell:** Zsh  
+**Shell:** Zsh  
 **Terminal:** Kitty  
 **Panel:** Waybar - patched for Hyprland  
 **Notify Daemon:** Dunst  
