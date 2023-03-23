@@ -1,5 +1,5 @@
 # Dan's Dotfiles
-**OS:** Arch Linux  
+>**OS:** Arch Linux  
 **Editor:** neovim  
 **Desktop Environment:** Hyprland  
 Shell • Zsh  
