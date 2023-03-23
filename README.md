@@ -5,9 +5,9 @@
 **Shell:**               Zsh  
 **Terminal:**            Kitty  
 **Panel:** Waybar - patched for Hyprland  
-**Notify Daemon:** Dunst  
-**File Manager:** Nemo  
-**Launcher:** Wofi  
+**Notify Daemon:** dunst  
+**File Manager:** nemo  
+**Launcher:** wofi  
 **Editor:** neovim  - embervim  
 
 > This repository is mainly to help me remember everything I use for my 
