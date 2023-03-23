@@ -95,7 +95,7 @@ rm -rd yay/
   
 Keeping the cloned directory is really not necessary so I like to delete it off of my system. However, now that we have yay we can proceed to install all of the other dependencies!
   
-* **NVIDIA:**  
+* **NVIDIA**  
   
 Installing hyprland on a nvidia gpu is relatively painless (atleast for me), things seem to just *work*. Using the packages listed above, we need to do some fun stuff before installing hyprland so we can run it!  
 • Modify the `GRUB_CMDLIND_LINUX_DEFAULT=` parameters in the file `/etc/default/grub` and append `nvidia_drm.modeset=1`  
@@ -108,6 +108,7 @@ Installing hyprland on a nvidia gpu is relatively painless (atleast for me), thi
   
 Now we just need to add the following lines to our `hyprland.conf` however this should not exist yet. Just quickly try to launch `Hyprland` and it will generate a config. It will of course, segfault, yet we can now start editing out configuration. Add the following lines:  
 ```
+# Under Environment Variables
 env = LIBVA_DRIVER_NAME,nvidia
 env = XDG_SESSION_TYPE,wayland
 env = GBM_BACKEND,nvidia-drm
@@ -117,11 +118,35 @@ env = WLR_NO_HARDWARE_CURSORS,1
 
 Now we can just *reboot* and continue installing Hyprland.
    
+* **Installation**   
+  
+Now to install hyprland and all of its dependencies, run the following command: (keep in mind you may choose different software than I have chosen, you do not *need* to use nemo, you could use dolphin instead)
+```
+yay -S hyprland-git xdg-desktop-portal-hyprland-git polkit-kde-agent qt6-wayland dunst waybar-hyprland hyprpaper-git slurp wofi weston nemo
+```
+> If it is necessary to select a provider for xdg-desktop-portal-impl, then select xdg-desktop-portal-gtk as it will cause the least amount of issues.  
+  
+Here are some additional packages that I like to use:  
+```
+yay -S webcord tmux neovim-nightly-bin
+```   
+  
+Now we need to add the following lines to our hyprland configuration: (If you are cloning a configuration make sure to add these lines AFTER you clone someone's configuration)  
+```
+exec-once = dunst & waybar & hyprpaper
+exec-once = /usr/lib/polkit-kde-authentication-agent-1
+# Under Environment Variables
+env = XDG_CURRENT_DESKTOP,Hyprland
+env = XDG_SESSION_TYPE,wayland
+env = XDG_SESSION_DESKTOP,Hyprland
+```  
 
-**Dependencies:**
-```
-yay -S hyprland-git waybar dunst nemo wofi
-```
+
+
+
+
+
+
 
 **Please keep in mind that this is a work in progress and all deps haven't
 been filled out yet!**
