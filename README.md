@@ -1,11 +1,11 @@
 # Dan's Dotfiles
 >**OS:** Arch Linux  
-**Editor:** neovim  
 **Desktop Environment:** Hyprland  
-Shell • Zsh  
-Terminal • Kitty  
-Panel • Waybar  
-Notify Daemon • Dunst  
-File Manager • Nemo  
+Shell: Zsh  
+Terminal: Kitty  
+Panel: Waybar - patched for Hyprland  
+Notify Daemon: Dunst  
+File Manager: Nemo  
+Editor: neovim  - embervim  
 
 ## Setup
