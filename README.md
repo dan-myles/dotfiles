@@ -1,18 +1,14 @@
 # Dan's Dotfiles
->**OS:** Arch Linux
+**OS:** Arch Linux
 <br>
->**Editor:** neovim (embervim)
+**Editor:** neovim
 <br>
->**Desktop Environment:** Hyprland
+**Desktop Environment:** Hyprland
 <br>
-> - Shell • Zsh
-<br>
-> - Terminal • Kitty
-<br>
-> - Panel • Waybar
-<br>
-> - Notify Daemon • Dunst 
-<br>
-> - File Manager • Nemo 
+ - Shell • Zsh
+ - Terminal • Kitty
+ - Panel • Waybar
+ - Notify Daemon • Dunst 
+ - File Manager • Nemo 
 
 ## Setup
