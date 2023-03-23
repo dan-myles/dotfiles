@@ -48,20 +48,79 @@ grub efibootmgr networkmanager network-manager-applet dialog wireless_tools wpa_
   
 * **Installing the Bootloader (Grub)**  
   
-Here comes the tricky part: as we are installing Grub on the same EFI partition as Windows we need to tell grub exactly where the efi directory is. Making this even more cumbersome, some motherboards (like the one I am using) such as MSI have broken NVRAM implementations. This requires adding the ```--removable``` flag to the ```grub--install``` command. However, in my experience it is best to install *both* with and without the removable flag. Also checking ```efibootmgr``` afterward to make sure the boot entry has been recorded is never a bad idea. If you do not wish to install via the removable flag you can also just copy the Grub efi record to the /boot folder within the EFI directory.
+Here comes the tricky part: installing Grub on the same EFI partition as Windows, for this we will need os-prober. Make sure to enable os-prober from within `/etc/default/grub`. Making this even more cumbersome, some motherboards (like the one I am using) such as MSI have broken NVRAM implementations. This requires adding the ```--removable``` flag to the ```grub--install``` command. However, in my experience it is best to install *both* with and without the removable flag. Also checking ```efibootmgr``` afterward to make sure the boot entry has been recorded is never a bad idea. Keep in mind that it is definitively necessary to turn off fast-boot and hibernation from within the BIOS and Windows respectively, or else you can run into some serious [problems](https://wiki.archlinux.org/title/Dual_boot_with_Windows#Fast_Startup_and_hibernation).
 ```
-grub-install --target=x86_64-EFI --efi-directory=/boot/EFI --bootloader-id=GRUB --recheck
+grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/EFI --recheck --removable
+grub-mkconfig -o /boot/grub/grub.cfg
+grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/EFI --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
 ```  
-I have also noticed that sometimes, os-prober **will not** find Windows Boot Manager. The solution to this is to install Grub normally, then when booting into the system, redo the Grub install and Grub mkconfig steps, and this will normally solve the issue. For some unknown reason (huge rabbithole), Grub will not find the Windows Boot Manager when chroot'ed into the system, but will find it when booted into the system normally.
+  
+After this just go into the BIOS settings and set the boot priority to favor Grub. Keep in mind that if you are like me and need to set the priority on an MSI motherboard, you need to go into **"UEFI Hard Disk Drive BBS Priorities"** and set the priority from there.  
+  
+I have also noticed that sometimes, os-prober **will not** find Windows Boot Manager. The solution to this is to install Grub normally, then after booting into the system (not from the live iso) just run the `grub-mkconfig -o /boot/grub/grub.cfg` again to update the grub. All things considered this *should* work.
+  
 
-
-
-
-
-Dependencies:
+* **Additional Setup**  
+  
+Now that we are succesfully booting into the system there are just a couple things left to do:
 ```
-hyprland-git waybar dunst nemo wofi
+systemctl start NetworkManager
+systemctl enable NetworkManager
+useradd -m -G wheel (username)
+passwd (username)
+EDITOR=vim visudo (here just uncomment the first wheel group)
+```  
+  
+I am using an NVIDIA card so I am going to need the nvidia package off the official pacman repo. I know a lot of people have trouble with these but in my experience they are perfectly fine (disregard what the hyprland wiki may tell you about dkms packages)! I am also using wayland as my display server so there is no need to install that as it is already installed.
+```
+nvidia nvidia-utils
+```
+  
+---
+### Installing Hyprland  
+  
+Before we get started it is important we install some critical dependencies *before* installing hyprland. This is to make the installation less error-prone. The critical dependencies are as follows:
+```
+sudo pacman -S kitty git
+```  
+After that is complete we are going to install Yay (AUR Helper), this will make the whole hyprland installation process a lot easier!  
+```
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+cd ..
+rm -rd yay/
+```  
+  
+Keeping the cloned directory is really not necessary so I like to delete it off of my system. However, now that we have yay we can proceed to install all of the other dependencies!
+  
+* **NVIDIA:**  
+  
+Installing hyprland on a nvidia gpu is relatively painless (atleast for me), things seem to just *work*. Using the packages listed above, we need to do some fun stuff before installing hyprland so we can run it!  
+• Modify the `GRUB_CMDLIND_LINUX_DEFAULT=` parameters in the file `/etc/default/grub` and append `nvidia_drm.modeset=1`  
+• Modify `/etc/mkinitcpio.conf`'s MODULES() to have `nvidia nvidia_modeset nvidia_uvm nvidia_drm`  
+• Run `sudo mkinitcpio --config /etc/mkinitcpio.conf --generate /boot/initramfs-custom.img`  
+• Add the line `options nvidia-drm modeset=1` to `/etc/modprob.d/nvidia.conf` (make it if it does not exist)  
+• Install the following dependencies `qt5-wayland qt5ct libva nvidia-vaapi-driver-git` (choose pipewire-jack for a jack provider, and wireplumber)   
+
+  
+  
+Now we just need to add the following lines to our `hyprland.conf` however this should not exist yet. Just quickly try to launch `Hyprland` and it will generate a config. It will of course, segfault, yet we can now start editing out configuration. Add the following lines:  
+```
+env = LIBVA_DRIVER_NAME,nvidia
+env = XDG_SESSION_TYPE,wayland
+env = GBM_BACKEND,nvidia-drm
+env = __GLX_VENDOR_LIBRARY_NAME,nvidia
+env = WLR_NO_HARDWARE_CURSORS,1
+``` 
+
+Now we can just *reboot* and continue installing Hyprland.
+   
+
+**Dependencies:**
+```
+yay -S hyprland-git waybar dunst nemo wofi
 ```
 
 **Please keep in mind that this is a work in progress and all deps haven't
