@@ -16,4 +16,5 @@ ln -s $SCRIPT_DIR/wofi ~/.config/wofi
 ln -s $SCRIPT_DIR/dunst ~/.config/dunst
 ln -s $SCRIPT_DIR/kitty ~/.config/kitty
 ln -s $SCRIPT_DIR/waybar ~/.config/waybar
+ln -s $SCRIPT_DIR/user-dirs.dirs ~/.config/user-dirs.dirs
 echo "Finished linking all directories!"
