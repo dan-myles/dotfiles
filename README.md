@@ -1,5 +1,8 @@
 # Dan's Dotfiles
->OS: Arch Linux
+>OS: Arch
+>Desktop Environment: Hyprland
+
+
 * **Wayland Compositor/Window Manager** • [Hyprland ](https://github.com/hyprwm/Hyprland)🎨 Tiles Everywhere!
 * **Shell** • [Zsh ](https://www.zsh.org) The best shell!
 * **Terminal** • [Kitty ](https://github.com/kovidgoyal/kitty) 💻 The best terminal!
