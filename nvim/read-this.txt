@@ -1,0 +1,4 @@
+Currently using embervim as neovim config.
+This can be found at:
+
+https://github.com/danlikestocode/dotfiles
