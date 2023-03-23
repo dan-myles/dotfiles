@@ -7,6 +7,7 @@
 **Panel:** Waybar - patched for Hyprland  
 **Notify Daemon:** Dunst  
 **File Manager:** Nemo  
+**Launcher:** Wofi  
 **Editor:** neovim  - embervim  
 
 > This repository is mainly to help me remember everything I use for my 
@@ -18,7 +19,7 @@ that you find appealing but no support will be offered for installation.
 
 Dependencies:
 ```
-hyprland-git waybar dunst nemo
+hyprland-git waybar dunst nemo wofi
 ```
 
 
