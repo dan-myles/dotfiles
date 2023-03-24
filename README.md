@@ -122,15 +122,59 @@ Now we can just *reboot* and continue installing Hyprland.
   
 Now to install hyprland and all of its dependencies, run the following command: (keep in mind you may choose different software than I have chosen, you do not *need* to use nemo, you could use dolphin instead)
 ```
-yay -S hyprland-git xdg-desktop-portal-hyprland-git polkit-kde-agent qt6-wayland dunst waybar-hyprland hyprpaper-git slurp wofi weston nemo
+yay -S hyprland-git xdg-user-dirs xdg-desktop-portal-hyprland-git polkit-kde-agent qt6-wayland dunst waybar-hyprland hyprpaper-git slurp wofi weston nemo
 ```
 > If it is necessary to select a provider for xdg-desktop-portal-impl, then select xdg-desktop-portal-gtk as it will cause the least amount of issues.  
   
 Here are some additional packages that I like to use:  
 ```
-yay -S webcord tmux neovim-nightly-bin
+yay -S webcord tmux neovim-nightly-bin github-cli google-chrome zsh layan-gtk-theme-git kora-icon-theme
 ```   
+
+* **General Configuration**   
+   
+##### Chrome  
+Make sure to set Chrome flags to use wayland!   
+• Launch Chrome with `google-chrome --enable-features=UseOzonePlatform --ozone-platform=wayland`   
+• Navigate to `chrome://flags`   
+• Set 'Preferred Ozone Platform' to `wayland` and you're good to go   
+
+#### neovim   
+I am using a custom bootstrap of neovim that I made myself and is available here [embervim](https://github.com/danlikestocode/embervim). For installation instructions regarding that please refer to the README (its pretty simple, no worries :).  
+
+#### zsh  
+I use ZSH for my shell, along with antidote and p10k for a theme, which requires some symbols from nerdfonts. It is recommended **not** to install a patched font with kitty as it usually wont work, instead installing the symbols ony. Here are some steps to setup ZSH:   
+• `chsh -l` and then `chsh -s /bin/zsh` to change the default shell   
+• Relaunch your terminal emulator and go through the new user configuration   
+• Install Meslo Nerd font with `yay -S ttf-meslo-nerd-font-powerlevel10k`   
+• For Kitty open `~/.config/kitty/kitty.conf` and set `font_family MesloLGS NF`, close all kitty sessions to apply changes (you can check that this worked by doing `kitty --debug-font-fallback`)   
+• Install ZSH plugin manager antidote with `yay -S zsh-antidote` and follow the printed instructions   
+• Install p10k with `antidote install https://github.com/romkatv/powerlevel10k` and follow the configuration wizard
   
+#### GTK Themes    
+You can download your favorite theme and place it at `/usr/share/themes/`, however this can be done way easier with yay & gsettings:  
+```
+yay -S layan-gtk-theme-git
+gsettings set org.gnome.desktop.interface gtk-theme Layan-Dark
+```  
+Make sure to add an entry to your `~/.config/gtk-3.0/settings.ini` or `/usr/share/gtk-3.0/settings.ini` with `gtk-application-prefer-dark-theme=true & gtk-theme-name=Layan-Dark` (on new lines), you may need to reboot.  
+  
+#### GTK Icons  
+You can download your favorite icon pack and place it in `/usr/share/icon`, this can also be done easily with yay:  
+```
+yay -S kora-icon-theme
+gsettings set org.gnome.desktop.interface icon-theme Kora
+```  
+Make sure to edit `/usr/share/icons/default/index.theme` and `/usr/share/gtk-3.0/settings.ini` with the appropriate theme name, you may need to reboot.
+ 
+#### SDDM Themes     
+coming soon...    
+
+#### GRUB Themes   
+coming soon...  
+
+* **Hyprland Configuration**   
+    
 Now we need to add the following lines to our hyprland configuration: (If you are cloning a configuration make sure to add these lines AFTER you clone someone's configuration)  
 ```
 exec-once = dunst & waybar & hyprpaper
