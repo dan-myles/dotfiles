@@ -129,7 +129,7 @@ yay -S hyprland-nvidia-git xdg-user-dirs xdg-desktop-portal-hyprland-git polkit-
   
 Here are some additional packages that I like to use:  
 ```
-yay -S webcord electron19 tmux neovim-nightly-bin github-cli google-chrome zsh layan-gtk-theme-git kora-icon-theme lsplug grim grimblast-git wl-clipboard obs-studio v4l2loopback-dkms 
+yay -S webcord electron19 tmux neovim-nightly-bin github-cli google-chrome zsh layan-gtk-theme-git kora-icon-theme lsplug grim grimblast-git wl-clipboard obs-studio v4l2loopback-dkms rmtrash
 ```   
   
 And finally, here are some other things that I like to bootstrap my system with, not necessarily installed with pacman/yay:  
