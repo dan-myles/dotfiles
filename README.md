@@ -120,9 +120,10 @@ Now we can just *reboot* and continue installing Hyprland.
    
 * **Installation**   
   
-Now to install hyprland and all of its dependencies, run the following command: (keep in mind you may choose different software than I have chosen, you do not *need* to use nemo, you could use dolphin instead)
+Now to install hyprland and all of its dependencies, run the following command: (keep in mind you may choose different software than I have chosen, you do not *need* to use nemo, you could use dolphin instead)  
+Also keep in mind that I am using `hyprland-nvidia-git` because I have a nvidia card, if you have an AMD card use `hyprland-git`.  
 ```
-yay -S hyprland-git xdg-user-dirs xdg-desktop-portal-hyprland-git polkit-kde-agent qt6-wayland dunst waybar-hyprland hyprpaper-git slurp wofi weston nemo
+yay -S hyprland-nvidia-git xdg-user-dirs xdg-desktop-portal-hyprland-git polkit-kde-agent qt6-wayland dunst waybar-hyprland hyprpaper-git slurp wofi weston nemo
 ```
 > If it is necessary to select a provider for xdg-desktop-portal-impl, then select xdg-desktop-portal-gtk as it will cause the least amount of issues.  
   
