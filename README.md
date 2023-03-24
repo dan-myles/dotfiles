@@ -181,9 +181,11 @@ coming soon...
 * **Hyprland Configuration**   
     
 Now we need to add the following lines to our hyprland configuration: (If you are cloning a configuration make sure to add these lines AFTER you clone someone's configuration)  
+Some of these do different things and are pretty self explanatory, but we are updating the DBUS for screen sharing to work!   
 ```
 exec-once = dunst & waybar & hyprpaper
 exec-once = /usr/lib/polkit-kde-authentication-agent-1
+exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 # Under Environment Variables
 env = XDG_CURRENT_DESKTOP,Hyprland
 env = XDG_SESSION_DESKTOP,Hyprland
