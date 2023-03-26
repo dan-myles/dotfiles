@@ -14,25 +14,25 @@
     "modules-center": ["hyprland/window"],
     "modules-right": [
         "tray",
-        "custom/updates",
-        "custom/language",
-        "battery",
-        "backlight",
-        "pulseaudio",
-        "pulseaudio#microphone"
+        "custom/updates"
+        // "cpu"
     ],
 
+    "cpu": {
+        "format": "{usage}% ",
+        "tooltip": false
+    },
     "hyprland/window": {
         "format": "{}"
     },
     "wlr/workspaces": {
+        "sort-by-number": true,
         "disable-scroll": true,
         "all-outputs": true,
         "on-click": "activate",
-        //"format": "{icon}",
+        "format": "{icon}",
         "persistent_workspaces": {
             "1": [],
-            "2": [],
             "3": [],
             "4": [],
             "5": [],
@@ -59,8 +59,8 @@
         "icon-size": 13,
         "spacing": 10
     },
-    "clock": {
-        "format": "{: %R   %d/%m}",
+    "clock": { 
+        "format": " {: %I:%M %p    %m/%d}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
     "backlight": {
@@ -111,3 +111,4 @@
         "scroll-step": 5
     }
 }
+
