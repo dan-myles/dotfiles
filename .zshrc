@@ -88,3 +88,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#71717a"
 # IDK?
 export CHERE_INVOKING=1
 
+# Aliases
+alias ls='ls --color=auto --group-directories-first'
+alias la='ls -lah --color=auto --group-directories-first'
+alias lg='lazygit'
